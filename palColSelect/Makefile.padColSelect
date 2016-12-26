@@ -1,0 +1,16 @@
+ASM = ../../wla/wla-dx-master/binaries/wla-z80
+LINK= ../../wla/wla-dx-master/binaries/wlalink
+PROGNAME = padColSelect
+OBJ = padColSelect.o
+
+$(PROGNAME).sg: $(OBJ) linkfile.$(PROGNAME)
+	$(LINK) -drvs linkfile.$(PROGNAME) $(PROGNAME).sg
+linkfile.$(PROGNAME): $(OBJ)
+	echo [objects]> linkfile.$(PROGNAME)
+	echo $(OBJ) >> linkfile.$(PROGNAME)
+
+%.o: %.asm 
+	$(ASM) -o $< $@ 
+
+clean:
+	rm *.o *.sym linkfile.$(PROGNAME)
